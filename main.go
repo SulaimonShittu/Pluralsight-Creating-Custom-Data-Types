@@ -9,7 +9,11 @@ import (
 
 func main() {
 	p := organization.NewPerson("Sulaimon", "Shittu")
-	err := p.SetTwitterHandler("")
+	err := p.SetTwitterHandler(organization.TwitterHandler{
+		Handle: "@eniolorunmife",
+		Name:   "Shittu",
+	})
+
 	if err != nil {
 		fmt.Print(err.Error())
 	}
@@ -17,4 +21,5 @@ func main() {
 	println(p.ID())
 	println(p.FullName())
 	println(p.GetTwitterhandler())
+
 }

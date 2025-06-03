@@ -6,6 +6,17 @@ import (
 	"strings"
 )
 
+type TwitterHandler Handler
+
+type Handler struct {
+	Handle string
+	Name   string
+}
+
+func (t *TwitterHandler) RedirectUrl() string {
+	return ""
+}
+
 type Identifiable interface {
 	ID() string
 }
@@ -13,7 +24,7 @@ type Identifiable interface {
 type Person struct {
 	firstName      string
 	lastName       string
-	twitterHandler string
+	twitterHandler TwitterHandler
 }
 
 func NewPerson(firstname, lastname string) Person {
@@ -31,8 +42,8 @@ func (p *Person) ID() string {
 	return "12345"
 }
 
-func (p *Person) SetTwitterHandler(handler string) error {
-	if !strings.HasPrefix(handler, "@") && len(handler) > 0 {
+func (p *Person) SetTwitterHandler(handler TwitterHandler) error {
+	if !strings.HasPrefix(string(handler.Handle), "@") && len(handler.Handle) > 0 {
 		return errors.New("Twitter handler missing important @ symbol.")
 	}
 
@@ -40,6 +51,6 @@ func (p *Person) SetTwitterHandler(handler string) error {
 	return nil
 }
 
-func (p *Person) GetTwitterhandler() string {
+func (p *Person) GetTwitterhandler() TwitterHandler {
 	return p.twitterHandler
 }
