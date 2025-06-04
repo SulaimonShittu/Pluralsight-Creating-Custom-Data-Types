@@ -8,18 +8,15 @@ import (
 // Course to be started again
 
 func main() {
-	p := organization.NewPerson("Sulaimon", "Shittu")
-	err := p.SetTwitterHandler(organization.TwitterHandler{
-		Handle: "@eniolorunmife",
-		Name:   "Shittu",
-	})
+	p := organization.NewPerson("Sulaimon", "Shittu", organization.NewSocialSecurityNumber("123-45-6789"))
+	err := p.SetTwitterHandler("@eniolorunmife")
 
 	if err != nil {
 		fmt.Print(err.Error())
 	}
 
-	println(p.ID())
-	println(p.FullName())
 	println(p.GetTwitterhandler())
+	println(p.GetTwitterhandler().RedirectUrl())
+	println(p.ID())
 
 }
