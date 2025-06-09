@@ -85,3 +85,7 @@ func (p *Person) SetTwitterHandler(handler TwitterHandler) error {
 func (p *Person) GetTwitterhandler() TwitterHandler {
 	return p.twitterHandler
 }
+
+func ada() {
+
+}
