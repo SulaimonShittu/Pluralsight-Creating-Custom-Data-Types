@@ -5,8 +5,6 @@ import (
 	"fmt"
 )
 
-// Course to be started again
-
 func main() {
 	p := organization.NewPerson("Sulaimon", "Shittu", organization.NewSocialSecurityNumber("123-45-6789"))
 	err := p.SetTwitterHandler("@eniolorunmife")
@@ -18,5 +16,6 @@ func main() {
 	println(p.GetTwitterhandler())
 	println(p.GetTwitterhandler().RedirectUrl())
 	println(p.ID())
-
+	println(p.Country())
+	println(p.FullName())
 }

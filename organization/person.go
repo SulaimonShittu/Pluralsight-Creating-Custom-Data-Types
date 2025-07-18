@@ -22,14 +22,43 @@ type Identifiable interface {
 	ID() string
 }
 
+type Citizen interface {
+	Identifiable
+	Country() string
+}
+
 type socialSecurityNumber string
 
-func NewSocialSecurityNumber(value string) socialSecurityNumber {
+func NewSocialSecurityNumber(value string) Citizen {
 	return socialSecurityNumber(value)
 }
 
 func (ssn socialSecurityNumber) ID() string {
 	return string(ssn)
+}
+
+func (ssn socialSecurityNumber) Country() string {
+	return "United States of America"
+}
+
+type europeanUnionIdentifier struct {
+	id      string
+	country string
+}
+
+func NewEuropeanUnionIdentifier(id, country string) Citizen {
+	return europeanUnionIdentifier{
+		id:      id,
+		country: country,
+	}
+}
+
+func (eu europeanUnionIdentifier) ID() string {
+	return eu.id
+}
+
+func (eu europeanUnionIdentifier) Country() string {
+	return eu.country
 }
 
 type Name struct {
@@ -48,16 +77,16 @@ type Employee struct {
 type Person struct {
 	Name
 	twitterHandler TwitterHandler
-	Identifiable
+	Citizen
 }
 
-func NewPerson(firstname, lastname string, identifiable Identifiable) Person {
+func NewPerson(firstname, lastname string, citizen Citizen) Person {
 	return Person{
 		Name: Name{
 			first: firstname,
 			last:  lastname,
 		},
-		Identifiable: identifiable,
+		Citizen: citizen,
 	}
 }
 
@@ -66,7 +95,7 @@ func (e Employee) Print() {
 }
 
 func (p *Person) ID() string {
-	return "12345"
+	return fmt.Sprintf("Person's identifier; %s", p.Citizen.ID())
 }
 
 func (p Person) FullName() string {
@@ -84,8 +113,4 @@ func (p *Person) SetTwitterHandler(handler TwitterHandler) error {
 
 func (p *Person) GetTwitterhandler() TwitterHandler {
 	return p.twitterHandler
-}
-
-func ada() {
-
 }
