@@ -12,10 +12,9 @@ func main() {
 	if err != nil {
 		fmt.Print(err.Error())
 	}
+}
 
-	println(p.GetTwitterhandler())
-	println(p.GetTwitterhandler().RedirectUrl())
-	println(p.ID())
-	println(p.Country())
-	println(p.FullName())
+type Name struct {
+	first string
+	last  string
 }
